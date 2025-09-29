@@ -33,7 +33,7 @@ export const updateContactSchema = Joi.object({
     'string.max': 'Username should have at most {#limit} characters',
     'any.required': 'Username is required',
   }),
-    phoneNumber: Joi.string().min(3).max(20).required().messages({
+    phoneNumber: Joi.string().min(3).max(20).messages({
     'string.min': 'Phone number should have at least {#limit} characters',
     'string.max': 'Phone number should have at most {#limit} characters',
   }),
@@ -45,7 +45,7 @@ export const updateContactSchema = Joi.object({
     isFavourite: Joi.boolean().messages({
         'boolean.base': 'The value is either not a boolean or could not be cast to a boolean from one of the truthy or falsy values.',
     }),
-    contactType: Joi.string().valid('work', 'home', 'personal').required().messages({
+    contactType: Joi.string().valid('work', 'home', 'personal').messages({
         'string.min': 'Contact type should have at least {#limit} characters',
         'string.max': 'Contact type should have at most {#limit} characters',
     }),
