@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import { isValidObjectId } from 'mongoose';
 
 export const contactSchema = Joi.object({
     name: Joi.string().min(3).max(20).required().messages({
@@ -25,6 +26,12 @@ export const contactSchema = Joi.object({
         'string.max': 'Contact type should have at most {#limit} characters',
         'any.required': 'Contact type is required',
     }),
+    userId: Joi.string().custom((value, helper) => {
+		    if (value && !isValidObjectId(value)) {
+		      return helper.message('Parent id should be a valid mongo id');
+		    }
+		    return true;
+		 }),
 });
 
 export const updateContactSchema = Joi.object({
@@ -45,7 +52,6 @@ export const updateContactSchema = Joi.object({
         'boolean.base': 'The value is either not a boolean or could not be cast to a boolean from one of the truthy or falsy values.',
     }),
     contactType: Joi.string().valid('work', 'home', 'personal').messages({
-        'string.min': 'Contact type should have at least {#limit} characters',
-        'string.max': 'Contact type should have at most {#limit} characters',
+        'any.only': 'Contact type must be one of: work, home, personal',
     }),
 });

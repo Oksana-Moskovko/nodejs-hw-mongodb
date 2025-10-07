@@ -5,28 +5,35 @@ import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { isValidId } from '../middlewares/isValidID.js';
 import { contactSchema, updateContactSchema } from '../validation/contacts.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
 const router = Router();
 
-router.get('/contacts', ctrlWrapper(getContactsController));
+router.use(authenticate);
 
-router.get('/contacts/:contactId',
+router.get('/', ctrlWrapper(getContactsController));
+
+router.get(
+    '/:contactId',
     isValidId,
     ctrlWrapper(getContactsByIdController)
 );
 
-router.post('/contacts',
+router.post(
+    '/',
     validateBody(contactSchema),
     ctrlWrapper(createContactController)
 );
 
-router.patch('/contacts/:contactId',
+router.patch(
+    '/:contactId',
     validateBody(updateContactSchema),
     isValidId,
     ctrlWrapper(patchContactController)
 );
 
-router.delete('/contacts/:contactId',
+router.delete(
+    '/:contactId',
     isValidId,
     ctrlWrapper(deleteContactController)
 );
