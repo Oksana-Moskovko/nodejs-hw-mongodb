@@ -15,14 +15,13 @@ const googleOAuthClient = new OAuth2Client({
     redirectUri: oauthConfig.web.redirect_uris[0],
 });
 
-export const generateAuthUrl = () => {
-    googleOAuthClient.generateAuthUrl({
-        score: [
-            'https://www.googleapis.com/auth/userinfo.email',
-            'https://www.googleapis.com/auth/userinfo.profile',
-        ],
-    });
-};
+export const generateAuthUrl = () =>
+  googleOAuthClient.generateAuthUrl({
+    scope: [
+      'https://www.googleapis.com/auth/userinfo.email',
+      'https://www.googleapis.com/auth/userinfo.profile',
+    ],
+  });
 
 export const validateCode = async (code) => {
   const response = await googleOAuthClient.getToken(code);
