@@ -29,11 +29,6 @@ parameters:
       enum: ['asc', 'desc']
       example: 'asc'
   - in: query
-    name: userId
-    schema:
-      type: string
-      example: '68e64114ae3d50dd53b9dcce'
-  - in: query
     name: type
     schema:
       type: string
